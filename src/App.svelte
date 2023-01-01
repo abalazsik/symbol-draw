@@ -9,6 +9,7 @@
 
 	const width = 200;
 	const height = 200;
+	const LINE_HEIGHT = 60;
 	let selectedId: undefined | number = undefined;
 
 	const onCreateSymbol = (path: Path) => {
@@ -39,14 +40,18 @@
 	onDestroy(() => {
 		window.removeEventListener("keydown", handleKeyDown);
 	});
+
+	function getBackgroundImage() {
+		return `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="${LINE_HEIGHT + 10}px" width="10px"><line stroke="gray" x1="0" y1="${LINE_HEIGHT}" x2="10" y2="${LINE_HEIGHT}" /></svg>')`;
+	}
 </script>
 
 <main>
-	<div>
+	<div style:background-image={getBackgroundImage()}>
 		{#each paths as path}
 			<SymbolContainer
 				width={64}
-				height={64}
+				height={LINE_HEIGHT}
 				{path}
 				viewBoxWidth={width}
 				viewBoxHeight={height}
