@@ -10,23 +10,36 @@
 
     export let path: Path;
     export let selected: boolean = false;
+    export let onClick: (id: number) => void | undefined = undefined;
+
+    function click() {
+        if (onClick) {
+            onClick(path.id);
+        }
+    }
 </script>
 
-<div class="symbol ${selected ? 'selected' : ''}">
-    <Symbol {width} {height} {path} {viewBoxWidth} {viewBoxHeight}/>
-</div>
+<button class="symbol" class:selected on:click={click}>
+    <Symbol {width} {height} {path} {viewBoxWidth} {viewBoxHeight} />
+</button>
 
 <style>
     .symbol {
         display: inline-block;
         width: fit-content;
+        border: none;
+        background: none;
+    }
+
+    .symbol:focus {
+        outline: none;
     }
 
     .symbol:hover {
         border: 1px dotted gray;
     }
 
-    .selected {
+    .selected:focus {
         border: 2px dotted gray;
     }
 </style>
